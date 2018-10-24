@@ -1,0 +1,32 @@
+<!Doctype html>
+<html>
+    <head>
+        <title>
+            XML Http Request
+        </title>
+        <body>
+
+            <div id="data"></div>
+
+            <script>
+                window.onload = function(){
+                    
+                    xhr = new XMLHttpRequest();
+                    xhr.open("GET", "data.json", false);
+
+                    xhr.send();
+
+                    var data = JSON.parse(xhr.response);
+                    var response = "";
+
+                    for(var i in data){
+                        response += `${i}: ${data[i]} <br>`;
+                    }
+
+                    document.getElementById("data").innerHTML = response;
+
+                }
+            </script>
+        </body>
+    </head>
+</html>
