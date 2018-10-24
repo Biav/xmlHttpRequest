@@ -9,21 +9,28 @@
             <div id="data"></div>
 
             <script>
-                window.onload = function(){
-                    
+                window.onload = function() {
+                   
+                    var response = "";
+
                     xhr = new XMLHttpRequest();
-                    xhr.open("GET", "data.json", false);
+                    xhr.open("GET", "data.json", true);
 
                     xhr.send();
 
-                    var data = JSON.parse(xhr.response);
-                    var response = "";
+                    xhr.onreadystatechange = function() {
+                        if(this.readyState === 4 && this.status === 200) {
+                            var data = JSON.parse(xhr.response);
+                            
+                            for(var i in data) {
+                                response += `${i}: ${data[i]} <br>`;
+                            }
 
-                    for(var i in data){
-                        response += `${i}: ${data[i]} <br>`;
+                            document.getElementById("data").innerHTML = response;
+                        } else {
+                            document.getElementById("data").innerHTML = "File not found";
+                        }
                     }
-
-                    document.getElementById("data").innerHTML = response;
 
                 }
             </script>
